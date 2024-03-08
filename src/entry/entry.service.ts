@@ -27,6 +27,7 @@ export class EntryService {
       where: { name: categoryName },
     });
 
+    // If it doesn't find a category, assign the category with the name: 'other'
     if (!category) {
       category = await this.categoryRepository.findOne({
         where: { name: 'other' },
