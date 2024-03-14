@@ -15,6 +15,9 @@ export const dbConfig: TypeOrmModuleOptions = {
   entities: [
     'dist/src/entry/entities/entry.entity.js',
     'dist/src/categories/entities/category.entity.js',
+
+    'dist/src/users/entities/user.entity.js',
+    // 'dist/src/user/entities/user.entity.js',
   ],
   migrations: ['dist/src/migrations/*.js'],
   logging: true,

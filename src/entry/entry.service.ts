@@ -4,7 +4,9 @@ import { UpdateEntryDto } from './dto/update-entry.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Entry } from './entities/entry.entity';
 import { Repository } from 'typeorm';
-import { Category } from 'src/categories/entities/category.entity';
+import { Category } from '../categories/entities/category.entity';
+import { User } from '../users/entities/user.entity';
+// import { User } from 'src/users/entities/user.entity';
 
 interface FindAllOptions {
   relations?: string[];
@@ -17,6 +19,10 @@ export class EntryService {
     private entryRepository: Repository<Entry>,
     @InjectRepository(Category)
     private categoryRepository: Repository<Category>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+    // @InjectRepository(User)
+    // private userRepository: Repository<User>,
   ) {}
 
   async create(createEntryDto: CreateEntryDto): Promise<Entry> {
