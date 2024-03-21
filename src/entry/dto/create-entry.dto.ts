@@ -34,10 +34,7 @@ export class CreateEntryDto {
   categoryName: string;
 
   @IsNotEmpty()
-  userId: string;
-
-  // @IsNotEmpty()
-  // userId: string;
+  userId: number;
 
   constructor(
     amount: number,
@@ -47,8 +44,7 @@ export class CreateEntryDto {
     comment: string,
     incomeExpense: 'income' | 'expense',
     categoryName: string,
-    userId: string,
-    // userId: string,
+    userId: number,
   ) {
     this.amount = amount;
     this.date = date;
@@ -58,6 +54,5 @@ export class CreateEntryDto {
     this.incomeExpense = incomeExpense;
     this.categoryName = categoryName;
     this.userId = userId;
-    // this.userId = userId;
   }
 }

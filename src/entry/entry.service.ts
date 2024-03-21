@@ -21,16 +21,19 @@ export class EntryService {
     private categoryRepository: Repository<Category>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    // @InjectRepository(User)
-    // private userRepository: Repository<User>,
   ) {}
 
+  // ~~~ CREATE A NEW ENTRY ~~~
   async create(createEntryDto: CreateEntryDto): Promise<Entry> {
-    const { categoryName, ...entryData } = createEntryDto;
+    const { categoryName, userId, ...entryData } = createEntryDto;
 
     // Fetch the category from the database based on the provided categoryName
     let category = await this.categoryRepository.findOne({
       where: { name: categoryName },
+    });
+    // Fetch the user from the database based on the provided userId
+    let user = await this.userRepository.findOne({
+      where: { id: userId },
     });
 
     // If it doesn't find a category, assign the category with the name: 'other'
@@ -39,9 +42,16 @@ export class EntryService {
         where: { name: 'other' },
       });
     }
+    // If it doesn't find a user, assign the guest id
+    if (!user) {
+      user = await this.userRepository.findOne({
+        where: { username: 'Guest' },
+      });
+    }
     // Create a new Entry entity and associate it with the fetched Category
     const entry = this.entryRepository.create({
       ...entryData,
+      user,
       category, // Assign the fetched Category to the category field of Entry
     });
 
@@ -49,6 +59,7 @@ export class EntryService {
     return this.entryRepository.save(entry);
   }
 
+  // ~~~ RETRIEVE ALL ENTRIES ~~~
   findAll(options: FindAllOptions) {
     return this.entryRepository.find(options); // Pass options to find method
   }

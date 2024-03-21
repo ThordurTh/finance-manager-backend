@@ -7,20 +7,12 @@ import { Category } from '../categories/entities/category.entity';
 import { CategoriesModule } from '../categories/categories.module';
 import { User } from '../users/entities/user.entity';
 import { UsersModule } from '../users/users.module';
-// import { Use } from 'src/users/entities/user.entity';
-// import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      Entry,
-      Category,
-      User,
-      // , User
-    ]),
+    TypeOrmModule.forFeature([Entry, Category, User]),
     CategoriesModule,
     UsersModule,
-    // UsersModule,
   ],
   controllers: [EntryController],
   providers: [EntryService],
