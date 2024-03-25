@@ -52,7 +52,7 @@ export class EntryService {
     const entry = this.entryRepository.create({
       ...entryData,
       user,
-      category, // Assign the fetched Category to the category field of Entry
+      category,
     });
 
     // Save the new Entry to the database
@@ -62,6 +62,15 @@ export class EntryService {
   // ~~~ RETRIEVE ALL ENTRIES ~~~
   findAll(options: FindAllOptions) {
     return this.entryRepository.find(options); // Pass options to find method
+  }
+
+  // ~~~ RETRIEVE ALL ENTRIES BY USER ID ~~~
+  async findAllByUserId(userId: number) {
+    return this.entryRepository.find({
+      relations: ['category'],
+      // relations: ['category', 'user'] Eager fetches the user object as well
+      where: { user: { id: userId } },
+    });
   }
 
   findOne(id: number) {

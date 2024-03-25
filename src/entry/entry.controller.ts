@@ -24,6 +24,10 @@ export class EntryController {
   findAll() {
     return this.entryService.findAll({ relations: ['category'] });
   }
+  @Get('user/:userId')
+  findAllByUserId(@Param('userId') userId: number) {
+    return this.entryService.findAllByUserId(userId);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
