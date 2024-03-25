@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { AdminGuard } from './guards/admin-user.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -31,5 +32,10 @@ export class AuthController {
   @Get('test')
   getProtectedRoute() {
     return "You're in";
+  }
+  @UseGuards(AdminGuard)
+  @Get('test2')
+  getRoleProtectedRoute() {
+    return "You're an admin";
   }
 }
